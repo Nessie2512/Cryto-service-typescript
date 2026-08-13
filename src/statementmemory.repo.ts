@@ -9,10 +9,8 @@ export class statementRepository implements IstatementRepo{
         this._statements = [];
     }
     
-    public async create(document: string, credit: string, value: number): Promise<void> {
-            
-        const newStatement = Statement.create(document, credit, value)
-            await this._statements.push(newStatement);
+    public async create(Statement:Statement): Promise<void> {
+            await this._statements.push(Statement);
     }
 
     public async findAll(): Promise<any[]> {       
