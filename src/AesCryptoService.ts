@@ -14,11 +14,11 @@ export class AesCryptoService implements cryptoProvider{
     const cipher = crypto.createCipheriv(this.algorithm, this.secretKey, this.iv);
     const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
     return `${this.iv.toString('hex')}:${encrypted.toString('hex')}`;
-    
+
    }
 
 
-   dencrypt(text: string): string {
+   dencrypt(cipherText: string): string {
 
     const [ivHex, encryptedHex] = cipherText.split(':');
     const iv = Buffer.from(ivHex, 'hex');
