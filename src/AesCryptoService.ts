@@ -1,8 +1,9 @@
+import { Injectable } from "@nestjs/common";
 import { cryptoProvider } from "./cryptoProvider";
 import * as crypto from 'crypto'
 
 
-
+Injectable()
 export class AesCryptoService implements cryptoProvider{
    
   private readonly algorithm = 'aes-256-ctr';
