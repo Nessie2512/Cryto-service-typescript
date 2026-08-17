@@ -2,19 +2,19 @@ import { randomUUID } from "crypto"
 
 
 export class entity<props>{
-    private id:string
+    private UUid:string
     private createdAt:Date
     private editAt?:Date
     private entityProps:props
 
     protected constructor(props:props, id?:string){
-        this.id = id ?? randomUUID()
+        this.UUid = id ?? randomUUID()
         this.entityProps = props
         this.createdAt = new Date(); 
     }
 
     public get Id(){
-        return this.id;
+        return this.UUid;
     }
 
     public get CreatedAt(){
