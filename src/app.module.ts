@@ -7,6 +7,7 @@ import { statementRepository } from './statementmemory.repo';
 import { findall } from './findall';
 import { cryptoProvider } from './cryptoProvider';
 import { AesCryptoService } from './AesCryptoService';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   controllers: [AppController],
@@ -21,5 +22,6 @@ import { AesCryptoService } from './AesCryptoService';
       useClass:AesCryptoService,
     }
   ],
+  imports: [PrismaModule],
 })
 export class AppModule {}
