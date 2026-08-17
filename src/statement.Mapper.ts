@@ -3,17 +3,19 @@ import { Statement } from "./statement.entity";
 
 export class statementMapper{
 
-    toEntity(rawData:statement){
+  public static  toEntity(rawData:statement){
         return Statement.create
         (
+            
          rawData.document,
          rawData.creditcard,
          rawData.value,
          rawData.uuid   
+
         )
     }
 
-    toTable(domianEntity:Statement){
+   public static toTable(domianEntity:Statement){
         
         return{
 

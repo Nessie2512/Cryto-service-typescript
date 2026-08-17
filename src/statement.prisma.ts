@@ -7,6 +7,7 @@ export class statementPrisma implements IstatementRepo{
     
     create(newStatement: Statement): Promise<void> {
         
+        const entityToTable = 
         
     }
 
