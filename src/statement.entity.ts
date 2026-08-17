@@ -30,4 +30,18 @@ export class Statement extends entity<statementProps>{
             }
         }
     }
+
+    public get document(){
+        return this.prosp.document;
+    }
+
+    
+    public get credit(){
+        return this.prosp.creditcard;
+    }
+
+    
+    public get value(){
+        return this.prosp.value;
+    }
 }

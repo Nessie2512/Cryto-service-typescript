@@ -15,7 +15,6 @@ generator client {
 model statement {
   id    Int    @id @default(autoincrement())
   uuid String @unique
-  email String @unique
   document  String
   creditcard String
   value  Int

@@ -13,7 +13,7 @@ export class entity<props>{
         this.createdAt = new Date(); 
     }
 
-    public get Id(){
+    public get UUId(){
         return this.UUid;
     }
 
@@ -28,5 +28,9 @@ export class entity<props>{
 
     protected edit(){
         this.editAt = new Date();
+    }
+
+    public get prosp(){
+        return this.entityProps
     }
 }
