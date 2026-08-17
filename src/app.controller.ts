@@ -11,7 +11,7 @@ export class AppController {
   }
 
   @Post("/create")
-  createStatement(@Body() statement: {document:string, credit:string,value:number}){
-    return this.appService.createStatement(statement.document, statement.credit, statement.value);
+  createStatement(@Body() statement: {document:string, creditcard:string,value:number}){
+    return this.appService.createStatement(statement.document, statement.creditcard, statement.value);
   }
 }

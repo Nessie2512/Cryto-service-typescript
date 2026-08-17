@@ -8,6 +8,7 @@ import { findall } from './findall';
 import { cryptoProvider } from './cryptoProvider';
 import { AesCryptoService } from './AesCryptoService';
 import { PrismaModule } from './prisma/prisma.module';
+import { statementPrisma } from './statement.prisma';
 
 @Module({
   controllers: [AppController],
@@ -15,7 +16,7 @@ import { PrismaModule } from './prisma/prisma.module';
     create.create,findall.findall,AppService, 
     {
       provide:IstatementRepo,
-      useClass:statementRepository,
+      useClass:statementPrisma,
     },
     {
       provide:cryptoProvider,

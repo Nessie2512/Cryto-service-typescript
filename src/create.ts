@@ -14,7 +14,6 @@ export namespace create{
             ){}
 
         execute(document:string, credit:string, value:number){
-            
         const encryptedDocument = this.cryptoService.encrypt(document);
         const encryptedCreditCard = this.cryptoService.encrypt(credit);
         const newStamentCreated = Statement.create(encryptedDocument,encryptedCreditCard,value)
