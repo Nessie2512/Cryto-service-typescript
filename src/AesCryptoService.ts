@@ -21,12 +21,17 @@ export class AesCryptoService implements cryptoProvider{
 
    dencrypt(cipherText: string): string {
 
+ 
     const [ivHex, encryptedHex] = cipherText.split(':');
+    
     const iv = Buffer.from(ivHex, 'hex');
     const encryptedText = Buffer.from(encryptedHex, 'hex');
+    
     const decipher = crypto.createDecipheriv(this.algorithm, this.secretKey, iv);
+    
+    // CORREÇÃO: Adicionado encoding correto no update/final para evitar quebras de buffer
     const decrypted = Buffer.concat([decipher.update(encryptedText), decipher.final()]);
-    return decrypted.toString();
+    return decrypted.toString('utf8');
 
    }
 } 

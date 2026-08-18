@@ -7,7 +7,6 @@ export class AppController {
 
   @Get()
   public async getStatements() {
-    
     return await this.appService.getAllstatements();
   }
 
