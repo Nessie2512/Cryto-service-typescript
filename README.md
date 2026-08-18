@@ -1,98 +1,91 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Crypto Service TypeScript 🛡️
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Uma aplicação demonstrativa desenvolvida com **NestJS**, **Prisma** e **SQLite**, concebida para ilustrar as melhores práticas na encriptação e decifração de dados sensíveis em tempo de execução (*runtime encryption*) antes da sua persistência na base de dados.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+O objetivo principal deste projeto é servir como modelo arquitetural para a manipulação segura de dados críticos (como documentos de identificação e cartões de crédito), garantindo que as informações sensíveis nunca sejam gravadas em texto limpo (*plain text*).
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Tecnologias Utilizadas
 
-## Project setup
+O ecossistema do projeto foi selecionado para garantir robustez, tipagem estática e facilidade de configuração local:
 
+*   **[NestJS](https://nestjs.com)** – Framework progressivo em Node.js para a construção de aplicações escaláveis e eficientes.
+*   **[Prisma ORM](https://prisma.io)** – ORM de última geração para Node.js e TypeScript, facilitando a modelação e migração de dados.
+*   **[SQLite3](https://sqlite.org)** – Base de dados relacional leve executada localmente, ideal para ambientes de desenvolvimento rápidos e testes isolados.
+*   **Node.js Crypto Module** – Módulo nativo do Node.js utilizado para implementar o algoritmo de criptografia simétrica `aes-256-ctr` com chaves derivadas por `scrypt`.
+
+---
+
+## 🔒 Arquitetura de Segurança
+
+A aplicação implementa os seguintes conceitos de segurança da informação:
+1.  **Algoritmo Avançado:** Utilização do `aes-256-ctr` para garantir uma cifragem simétrica rápida e segura.
+2.  **Criptografia Dinâmica:** Geração de um Vetor de Inicialização (`IV`) único para cada operação de cifragem, prevenindo ataques de análise de padrões textuais.
+3.  **Segurança em Camadas:** Os dados são cifrados na camada de serviço imediatamente antes de chegarem ao repositório do Prisma e decifrados em tempo de execução antes de serem retornados ao cliente.
+
+---
+
+## 📦 Configuração e Instalação
+
+Siga os passos abaixo para clonar, configurar e executar o projeto no seu ambiente local.
+
+### 1. Requisitos Prévios
+Certifique-se de que tem o **Node.js** (versão 18 ou superior) e o **npm** instalados na sua máquina.
+
+### 2. Instalar as Dependências
+Instale todos os pacotes necessários definidos no `package.json`:
 ```bash
-$ npm install
+npm install
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+### 3. Configurar as Variáveis de Ambiente
+Crie um ficheiro `.env` na raiz do projeto e configure a string de conexão para o seu ficheiro SQLite local (ou valide se já existe):
+```env
+DATABASE_URL="file:./dev.db"
 ```
 
-## Run tests
-
+### 4. Preparar a Base de Dados (Prisma)
+Execute as migrações para criar as tabelas necessárias no SQLite e, em seguida, gere o cliente do Prisma:
 ```bash
-# unit tests
-$ npm run test
+# Executa as migrações locais e aplica o schema
+npx prisma migrate dev --name init
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Gera o Prisma Client com base no schema.prisma
+npx prisma generate
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## 🛠️ Execução da Aplicação
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Após concluir a configuração da base de dados, pode iniciar o servidor em ambiente de desenvolvimento:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Inicia a aplicação em modo de observação (watch mode)
+npm run start:dev
+```
+O servidor será iniciado por padrão em `http://localhost:3000`.
+
+---
+
+## 🧪 Testes
+
+O projeto vem configurado com testes unitários e de integração utilizando Jest para validar os fluxos de criptografia:
+
+```bash
+# Executa os testes unitários
+npm run test
+
+# Executa os testes de ponta a ponta (e2e)
+npm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 📝 Licença
 
-Check out a few resources that may come in handy when working with NestJS:
+Este projeto está sob a licença [MIT](LICENSE).
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+Desenvolvido como um guia prático para segurança de dados em TypeScript por [Nessie2512](https://github.com/Nessie2512).
