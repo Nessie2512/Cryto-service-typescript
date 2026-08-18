@@ -13,7 +13,6 @@ export class statementPrisma implements IstatementRepo{
         
         const entityToTable = statementMapper.toTable(newStatement);
 
-        console.log(entityToTable,"to table")
         await this.prismaService.statement.create({
             data:{
 
@@ -29,7 +28,6 @@ export class statementPrisma implements IstatementRepo{
 
     public async findAll(): Promise<any[]> {
 
-        console.log("repo")
         const rawStatements = await this.prismaService.statement.findMany({})
         const statements = rawStatements.map( statement => statementMapper.toEntity(statement));
         return statements;
