@@ -2,8 +2,9 @@ import { IstatementRepo } from "./Istatement.repo"
 import { Statement } from "./statement.entity";
 import { PrismaService } from "./prisma/prisma.service";
 import { statementMapper } from "./statement.Mapper";
+import { Injectable } from "@nestjs/common";
 
-
+@Injectable()
 export class statementPrisma implements IstatementRepo{
 
     constructor(private readonly prismaService: PrismaService){}
@@ -11,7 +12,7 @@ export class statementPrisma implements IstatementRepo{
     public async create(newStatement: Statement): Promise<void> {
         
         const entityToTable = statementMapper.toTable(newStatement);
-        
+
         console.log(entityToTable,"to table")
         await this.prismaService.statement.create({
             data:{
@@ -28,7 +29,8 @@ export class statementPrisma implements IstatementRepo{
 
     public async findAll(): Promise<any[]> {
 
-        const rawStatements = await this.prismaService.statement.findMany();
+        console.log("repo")
+        const rawStatements = await this.prismaService.statement.findMany({})
         const statements = rawStatements.map( statement => statementMapper.toEntity(statement));
         return statements;
 

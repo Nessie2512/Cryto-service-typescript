@@ -2,6 +2,7 @@
 npx prisma db push
 
 # 2. Reconstrói o Prisma Client com a nova estrutura v7
+npx prisma migrate dev --name init
 npx prisma generate
 
 # Environment variables declared in this file are NOT automatically loaded by Prisma.

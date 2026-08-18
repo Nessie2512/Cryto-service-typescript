@@ -8,8 +8,8 @@ export namespace findall{
 
         constructor(private readonly IstatementRepo:IstatementRepo){}
 
-        async execute(){
-                return this.IstatementRepo.findAll();
+        public async execute(){
+                return await this.IstatementRepo.findAll();
         }
     }
 }

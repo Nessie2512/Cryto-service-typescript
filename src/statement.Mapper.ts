@@ -1,9 +1,8 @@
-import { statement } from "@prisma/client";
 import { Statement } from "./statement.entity";
 
 export class statementMapper{
 
-  public static  toEntity(rawData:statement){
+  public static  toEntity(rawData:any){
         return Statement.create
         (
             
@@ -22,7 +21,7 @@ export class statementMapper{
             uuid:domianEntity.UUId,
             document:domianEntity.document,
             creditcard:domianEntity.credit,
-            valeu:domianEntity.value
+            valeu:+domianEntity.value
 
         }
     }
